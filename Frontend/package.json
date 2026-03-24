@@ -1,0 +1,60 @@
+{
+  "name": "ai-code-visualizer",
+  "displayName": "AI Code Visualizer",
+  "description": "Visualize Python code as flowcharts, architecture, sequence & class diagrams using AI.",
+  "version": "2.0.0",
+  "publisher": "your-publisher-id",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Visualization", "Other"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aiCodeVisualizer.visualize",
+        "title": "AI Visualizer: Visualize Code",
+        "category": "AI Visualizer"
+      },
+      {
+        "command": "aiCodeVisualizer.analyzeWorkspace",
+        "title": "AI Visualizer: Analyze Workspace",
+        "category": "AI Visualizer"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "aiCodeVisualizer.visualize",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "aiCodeVisualizer.visualize",
+          "when": "editorHasSelection || resourceExtname == .py",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AI Code Visualizer",
+      "properties": {
+        "aiCodeVisualizer.backendUrl": {
+          "type": "string",
+          "default": "http://localhost:8000",
+          "description": "URL of the AI Code Visualizer FastAPI backend."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  }
+}
