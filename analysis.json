@@ -1,0 +1,32 @@
+{
+  "flowchart": "graph TD\nStart[Developer Triggers Command in VS Code] --> VSCode[VS Code Extension Frontend]\nVSCode --> |POST /visualize| FastAPI[FastAPI Backend Server]\nFastAPI --> |Spawn sub-process| JSParser[runParser.js / python ast parser]\nJSParser --> |Returns graph| FastAPI\nFastAPI --> |Call OpenRouter API| LLM[ai_service.py]\nLLM --> |JSON Insights| FastAPI\nFastAPI --> |VisualizeResponse| VSCode\nVSCode --> Webview[Render SVG Diagrams in Webview Panel]",
+  "architecture": "graph TD\nsubgraph Client\n  Ext[VS Code Extension]\n  UI[Webview UI Panel]\nend\nsubgraph Server\n  API[FastAPI Server - server.py]\n  JS[JavaScript AST Service - runParser.js]\n  PY[Python Parsers - ast_to_ir.py]\n  AI[AI Integration - ai_service.py]\nend\nExt -- POST /visualize --> API\nAPI -- Shell execute --> JS\nAPI -- Python function --> PY\nAPI -- HTTP Call --> AI\nAPI -- Response --> UI",
+  "sequence": "sequenceDiagram\nactor Dev\nDev->>Ext: Selects code & Run command\nExt->>Server: POST /visualize (code)\nServer->>JS Parser: Extract abstract syntax tree\nJS Parser-->>Server: Base nodes and edges\nServer->>AI model: analyze_code(code) via OpenRouter\nAI model-->>Server: Formatted JSON with explanations & Mermaid\nServer-->>Ext: Unified JSON Response\nExt->>Webview Panel: Paint Mermaid Diagrams dynamically",
+  "class_diagram": "classDiagram\nclass VisualizerPanel {\n  +currentPanel: VisualizerPanel\n  -_panel: WebviewPanel\n  +createOrShow(extensionUri) VisualizerPanel\n  +showLoading(hint)\n  +showResults(data)\n  -_getBaseHtml() string\n}\nclass VisualizeRequest {\n  +code: str\n  +question: str\n  +filename: str\n}\nclass VisualizeResponse {\n  +flowchart: str\n  +architecture: str\n  +sequence: str\n  +class_diagram: str\n  +call_graph: str\n  +mermaid: str\n}\nVisualizerPanel ..> VisualizeResponse: Uses",
+  "call_graph": "graph LR\nactivate --> registerCommand_visualizeFile\nregisterCommand_visualizeFile --> VisualizerPanel.createOrShow\nregisterCommand_visualizeFile --> fetch_visualize_API\nfetch_visualize_API --> visualize_endpoint\nvisualize_endpoint --> _run_ast_pipeline\nvisualize_endpoint --> analyze_code\n_run_ast_pipeline --> subprocess_run_node",
+  "explanation": "This codebase represents a Visual Studio Code extension accompanied by a Python backend for intelligent code visualization. The entry point at the frontend allows users to select text or multiple workspace files, prompting the extension to bundle and send this source code over to the robust FastAPI-driven backend. At its core, the backend server pipelines the code sequentially: first offloading deterministic AST (Abstract Syntax Tree) generation to a Node.js process (`runParser.js`), and concurrently consulting a semantic AI model (via OpenRouter integration in `ai_service.py`) for deeper insights, flowchart semantics, and system architectural views natively in Mermaid.js syntax. Finally, the synthesis of this data is sent back across HTTP directly wrapping into a dynamic local Webview panel initialized by the frontend, offering an interactive visual playground of the repository.",
+  "workflow": [
+    "User triggers 'aiCodeVisualizer.visualizeFile' or 'analyzeWorkspace' inside VS Code.",
+    "Extension fetches the active document or relevant matched Python assets and issues an HTTP POST containing the file data to the `http://localhost:8000/visualize` Python server.",
+    "FastAPI receives the payload, spins up `_run_ast_pipeline` which calls out to the underlying local AST module `runParser.js` mapped locally.",
+    "The code is forwarded immediately parallel-to standard processing to `ai_service.py` to extract conceptual complexity, dependencies, and complex topological Mermaid diagram code.",
+    "The API constructs a unified `VisualizeResponse` dictionary and returns it back out over CORS-enabled routes.",
+    "The frontend `VisualizerPanel` captures this response using the Fetch API, injects it into a curated HTML string dynamically utilizing the Mermaid.js standard library, and completes DOM updates showing flowcharts, class graphs, explanations, and architectural sequences natively inside the editor."
+  ],
+  "summary": "An AI-powered local Visual Studio Code Extension and external FastAPI server system that automatically visualizes developer code into rich diagrams and structural explanations using Mermaid.js syntax mapping and node graph abstraction extraction.",
+  "dependencies": [
+    "vscode",
+    "fastapi",
+    "uvicorn",
+    "mermaid.js",
+    "python-dotenv",
+    "node.js",
+    "subprocess (Python natively)"
+  ],
+  "complexity": {
+    "time": "O(N)",
+    "space": "O(N)",
+    "estimated_operations": 50000,
+    "estimated_runtime_ms": 2500
+  }
+}
