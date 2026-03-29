@@ -1218,7 +1218,7 @@ function enableNodeClick(){
 
     node.style.cursor = "pointer"
 
-    node.addEventListener("click",()=>{
+    node.addEventListener("click",(e)=>{
 
       const label = node.textContent.trim()
 
@@ -1234,6 +1234,11 @@ function enableNodeClick(){
       })
 
       node.classList.add("highlight-node")
+
+      if (globalThis.DiagramAnnotations && globalThis.DiagramAnnotations.showPopup) {
+        const nodeAnns = globalThis.DiagramAnnotations.getAll(label) || [];
+        globalThis.DiagramAnnotations.showPopup(label, nodeAnns, e.clientX, e.clientY);
+      }
 
       node.scrollIntoView({
         behavior:"smooth",

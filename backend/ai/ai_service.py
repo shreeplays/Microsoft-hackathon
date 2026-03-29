@@ -252,7 +252,7 @@ def analyze_code(code: str, question: str = "", api_key: str = "") -> dict[str, 
     payload = {
         "model": MODEL,
         "temperature": 0.1,
-        "max_tokens": 3500,
+        "max_tokens": 16000,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": prompt},

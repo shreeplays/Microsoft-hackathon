@@ -381,5 +381,6 @@ globalThis.DiagramAnnotations = {
   load: loadAnnotations,
   save: saveAnnotations,
   togglePanel: toggleAnnotationPanel,
-  renderPanel: renderAnnotationPanel
+  renderPanel: renderAnnotationPanel,
+  showPopup: _showAnnotationPopup
 }
