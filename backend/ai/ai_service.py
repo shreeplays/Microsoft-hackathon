@@ -100,23 +100,18 @@ def format_complexity(big_o: str):
 # ─────────────────────────────────────────────
 # PROMPTS
 
-SYSTEM_PROMPT = """You are a senior software architect.
+SYSTEM_PROMPT = """You are a senior software architect analyzing code to generate detailed architectural diagrams.
 
 Return ONLY valid JSON.
 
-CRITICAL RULES:
+CRITICAL RULES FOR FLOWCHARTS:
 
-- Generate FULL flowchart
-- Include ALL functions
-- Include ALL loops
-- Include ALL conditionals
-- Include ALL function calls
-- Include nested calls
-- Include class methods
-- Do NOT summarize
-- Do NOT simplify
-- Use real function names
-- Flowchart can be large
+- Trace the actual runtime execution flow and business logic, NOT just structurally listing function/class definitions.
+- For each piece of logic, expand its internal operations (if statements, loops, error handling, function calls).
+- Include nested calls to show how components interact at runtime.
+- Do NOT just draw a straight line of "Define X" --> "Define Y". This is trivial. We need the runtime logic!
+- Connect caller functions to their respective callee functions.
+- Flowcharts MUST be large, detailed, and completely map out the entire application logic.
 
 Return fields:
 
@@ -138,24 +133,24 @@ Analyze this code and return STRICT JSON.
 
 CRITICAL FLOWCHART RULES:
 
-- Generate FULL flowchart
-- Include ALL functions
-- Include loops and conditionals
-- Include nested calls
-- Include returns
-- Do NOT summarize
+- Trace the execution logic, NOT just top-level definitions.
+- If the script contains classes and functions, map out exactly how they call each other at runtime.
+- Visually chart internal nested logic (loops, if/else, try/catch).
+- Ensure the flowchart realistically represents the code's operation when it is run.
 
 MERMAID RULES (IMPORTANT):
 
 - Use flowchart TD
 - Wrap ALL labels in quotes
-- Avoid parentheses if possible
+- Avoid parentheses in node names (use quotes for labels instead, e.g., A["Function(args)"])
 - Avoid special characters
 - Use readable short labels
 
 Example:
 
-A["Load Config"] --> B["Set Retries"]
+A["Start Initializer"] --> B{{"Is Valid?"}}
+B -- Yes --> C["Process Request"]
+B -- No --> D["Return Error"]
 
 Code:
 {code}
@@ -188,7 +183,7 @@ CACHE_TTL = 3600
 
 
 def _cache_key(code: str, question: str) -> str:
-    return hashlib.sha256(f"{code}{question}".encode()).hexdigest()
+    return hashlib.sha256(f"{code}{question}v3".encode()).hexdigest()
 
 
 def _cache_get(key: str):
