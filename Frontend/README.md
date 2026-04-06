@@ -1,71 +1,266 @@
-# code2flow-ai README
+🚀 Code2Flow AI
 
-This is the README for your extension "code2flow-ai". After writing up a brief description, we recommend including the following sections.
+> AI-Powered Code Flow Visualizer for VS Code
 
-## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
-For example if there is an image subfolder under your extension project workspace:
+Code2Flow AI automatically converts your source code into interactive flow diagrams so you can understand logic, debug faster, and visualize architecture instantly.
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
 
 ---
 
-## Following extension guidelines
+✨ Features
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+🔍 Core Features
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+Generate flowcharts from code
 
-## Working with Markdown
+Multi-function visualization
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+Interactive flow diagrams
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+Supports multiple programming languages
 
-## For more information
+Clean and readable node layout
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
-**Enjoy!**
+🤖 AI-Powered Features
+
+AI Flow Explanation
+
+Complexity Analysis
+
+Code Understanding
+
+Architecture Summary
+
+
+🧠 Developer Productivity
+
+Clickable nodes
+
+Jump to function
+
+Hover preview
+
+Zoom and pan
+
+Search functions
+
+Code Metrices
+
+
+📤 Export Options
+
+Export PNG
+
+Export SVG
+
+Export PDF (Planned)
+
+
+---
+
+🛠 Installation
+
+From VS Code Marketplace
+
+1. Open VS Code
+
+
+2. Go to Extensions
+
+
+3. Search "Code2Flow AI"
+
+
+4. Click Install
+
+
+--- API key ---
+
+ In the .env file upload your own  OpenRouter API key.
+
+----------------
+
+
+
+From Source
+
+git clone https://github.com/YOUR_USERNAME/code2flow-ai.git
+
+cd code2flow-ai/Frontend
+
+npm install
+
+npm run compile
+
+cd .. 
+
+cd backend
+
+python -m uvicorn api.server:app --reload
+
+Open in VS Code:
+
+Press F5 to run extension.ts
+
+
+---
+
+🚀 Usage
+
+Generate Flow
+
+1. Open any file
+
+
+2. Right-click in editor
+
+
+3. Click Visualize Code
+
+
+
+Or use command palette:
+
+Ctrl + Shift + P
+Code2Flow: Generate Flow
+
+
+---
+
+📁 Supported Languages
+     
+typescript 
+C#
+C
+C++
+java
+javascript 
+python 
+rust 
+sql                                  
+Go                      
+PHP                  
+ruby                   
+Dart                    
+R                         
+Julia                  
+Kotlin                
+Swift                  
+Elixir             
+Solidity         
+Haskell         
+Scala            
+Clojure         
+Zig              
+Perl          
+Lua             
+Fortran     
+COBOL         
+Verilog
+Assembly
+---
+
+🧩 Example
+
+Input Code:
+
+function login(user) {
+  if (!user) return;
+  authenticate(user);
+  dashboard();
+}
+
+Generated Flow:
+
+Start → Check User → Authenticate → Dashboard
+
+
+---
+
+🏗 Architecture
+
+VS Code Extension
+      ↓
+Code Parser
+      ↓
+AI Analyzer
+      ↓
+Flow Generator
+      ↓
+Graph Renderer
+
+
+
+
+
+---
+
+🧠 Use Cases
+
+Understanding large codebases
+
+Debugging complex logic
+
+Learning new projects
+
+Code reviews
+
+Documentation generation
+
+
+
+
+
+---
+
+
+
+
+👨‍💻 Author
+
+Arcot Mohamed Shuwais
+
+Shree Keshav KS
+
+Mohammed Areeb Hussain 
+
+
+---
+
+🔥 Why Code2Flow AI?
+
+Unlike traditional flow tools:
+
+AI powered
+
+Interactive diagrams
+
+Multi-file visualization
+
+Developer focused
+
+
+
+---
+
+🚀 Future Vision
+
+Code2Flow AI aims to become:
+
+> "The Google Maps for Codebases"
+
+
+
+Visualize. Understand. Build Faster.
+
+
+
+
+---
+
+🚀 Code2Flow AI
+
+Made for Developers ❤️
